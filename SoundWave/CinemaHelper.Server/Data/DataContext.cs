@@ -10,16 +10,8 @@ namespace SoundWave.Server.Data
         {
         }
 
-        public DbSet<Cinema> Cinemas { get; set; }
-        public DbSet<Album> Authors { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new Cinema.Configuration());
-            modelBuilder.ApplyConfiguration(new Album.Configuration());
-
-            base.OnModelCreating(modelBuilder);
-        }
+        public DbSet<Song> Songs { get; set; }
+        public DbSet<Album> Albums { get; set; }
 
     }
 }

@@ -2,11 +2,9 @@
 
 namespace SoundWave.Server.DTOs
 {
-    public class AddSongDTO
+    public record class AddSongDTO
     (
-        [Required][StringLength(50)] string Name,
-        int GenreId,
-        [Range(1, 100)] decimal Price,
-        DateOnly ReleaseDate
+        [Required][StringLength(128)] string Title,
+        [Required][StringLength(128)] string Length
     );
 }

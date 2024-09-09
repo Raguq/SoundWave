@@ -7,10 +7,8 @@ namespace SoundWave.Server.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
-
-        public int AlbumId { get; set; }
-        public Album? Author { get; set; }
-
+        public string Lenght { get; set; }
+        DateTime CreatedAt { get; set; }
+        DateTime? LastUpdatedAt { get; set; }
     }
 }
