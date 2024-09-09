@@ -1,0 +1,38 @@
+﻿<Window x:Class="CinemaHelper.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaHelper.App"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+            <Button 
+                Margin="10 10 10 0"
+                Height="70"
+                Width="250"
+                Content="Список фильмов"
+                Background="Purple"
+                FontSize="30"
+                BorderBrush="Transparent"
+                x:Name="CinemaListPage"
+                Click="CinemaListPage_Click"
+                />
+            <Button 
+                Margin="10 10 10 0"
+                Height="70"
+                Width="250"
+                Content="Бронирование"
+                Background="Purple"
+                FontSize="30"
+                BorderBrush="Transparent"
+                x:Name="BokingPage"
+                Click="BokingPage_Click"
+                />
+        </StackPanel>
+            <Frame x:Name="Main"
+                   Margin="0,80,0,0"
+                   NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
