@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CinemaHelper.Server.DTOs
+namespace SoundWave.Server.DTOs
 {
-    public record class UpdateAuthorDto(
+    public record class UpdateAlbumDTO(
         [Required][StringLength(128)] string Name
     );
 }

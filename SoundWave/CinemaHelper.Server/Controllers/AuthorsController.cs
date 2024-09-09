@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CinemaHelper.Server.Entities;
-using CinemaHelper.Server.Data;
+using SoundWave.Server.Entities;
+using SoundWave.Server.Data;
 
 namespace Cinema.Controllers
 {
@@ -23,14 +23,14 @@ namespace Cinema.Controllers
 
         // GET: api/Authors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
+        public async Task<ActionResult<IEnumerable<Album>>> GetAuthors()
         {
             return await _context.Authors.ToListAsync();
         }
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Author>> GetAuthor(int id)
+        public async Task<ActionResult<Album>> GetAuthor(int id)
         {
             var author = await _context.Authors.FindAsync(id);
 
@@ -45,7 +45,7 @@ namespace Cinema.Controllers
         // PUT: api/Authors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAuthor(int id, Author author)
+        public async Task<IActionResult> PutAuthor(int id, Album author)
         {
             if (id != author.Id)
             {
@@ -76,7 +76,7 @@ namespace Cinema.Controllers
         // POST: api/Authors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Author>> PostAuthor(Author author)
+        public async Task<ActionResult<Album>> PostAuthor(Album author)
         {
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();

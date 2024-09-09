@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace CinemaHelper.Core
+namespace SoundWave.Core
 {
     /// <summary>
     /// Класс фильма. 

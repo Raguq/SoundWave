@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CinemaHelper.App
+namespace SoundWave.App
 {
     /// <summary>
     /// Interaction logic for App.xaml

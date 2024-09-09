@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace CinemaHelper.App.Core
+namespace SoundWave.App.Core
 {
     public class RelayCommand : ICommand
     {

@@ -1,7 +1,7 @@
-﻿namespace CinemaHelper.Server.DTOs
+﻿namespace SoundWave.Server.DTOs
 {
 
-    public record class CinemaDTO(
+    public record class SongDTO(
         int Id,
         string Title,
         string Description,

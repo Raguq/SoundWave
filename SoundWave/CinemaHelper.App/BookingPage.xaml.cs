@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaHelper.App
+namespace SoundWave.App
 {
     /// <summary>
     /// Логика взаимодействия для Booking.xaml

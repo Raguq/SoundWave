@@ -1,7 +1,7 @@
-﻿using CinemaHelper.Server.Entities;
+﻿using SoundWave.Server.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CinemaHelper.Server.Data
+namespace SoundWave.Server.Data
 {
     public class DataContext : DbContext
     {
@@ -11,12 +11,12 @@ namespace CinemaHelper.Server.Data
         }
 
         public DbSet<Cinema> Cinemas { get; set; }
-        public DbSet<Author> Authors { get; set; }
+        public DbSet<Album> Authors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new Cinema.Configuration());
-            modelBuilder.ApplyConfiguration(new Author.Configuration());
+            modelBuilder.ApplyConfiguration(new Album.Configuration());
 
             base.OnModelCreating(modelBuilder);
         }

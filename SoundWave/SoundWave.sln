@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaHelper.Integration", "CinemaHelper\CinemaHelper.Integration.csproj", "{59DFD24D-C61C-458C-A947-2F4179579849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundWave.Integration", "CinemaHelper\SoundWave.Integration.csproj", "{59DFD24D-C61C-458C-A947-2F4179579849}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaHelper.Core", "CinemaHelper.Core\CinemaHelper.Core.csproj", "{7CE7B774-7F0E-4ED0-B940-C8842288471F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundWave.Core", "CinemaHelper.Core\SoundWave.Core.csproj", "{7CE7B774-7F0E-4ED0-B940-C8842288471F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaHelper.App", "CinemaHelper.App\CinemaHelper.App.csproj", "{C06E2A93-134D-48C6-9328-DC157144CBF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundWave.App", "CinemaHelper.App\SoundWave.App.csproj", "{C06E2A93-134D-48C6-9328-DC157144CBF4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaHelper.Server", "CinemaHelper.Server\CinemaHelper.Server.csproj", "{C11110A0-5CC6-4231-B3D0-937009B18721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundWave.Server", "CinemaHelper.Server\SoundWave.Server.csproj", "{C11110A0-5CC6-4231-B3D0-937009B18721}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

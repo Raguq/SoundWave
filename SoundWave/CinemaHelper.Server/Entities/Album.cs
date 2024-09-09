@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace CinemaHelper.Server.Entities
+namespace SoundWave.Server.Entities
 {
-    public class Author
+    public class Album
     {
         public int Id { get; set; }
         public string Name { get; set; }

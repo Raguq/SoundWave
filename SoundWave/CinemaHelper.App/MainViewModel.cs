@@ -1,9 +1,9 @@
-﻿using CinemaHelper.App.Core;
-using CinemaHelper.Core;
-using CinemaHelper.Core.Service;
+﻿using SoundWave.App.Core;
+using SoundWave.Core;
+using SoundWave.Core.Service;
 using System.Collections.ObjectModel;
 
-namespace CinemaHelper.App
+namespace SoundWave.App
 {
     public class MainViewModel : ObservableObject
     {

@@ -1,6 +1,6 @@
-﻿using CinemaHelper.App.Core;
+﻿using SoundWave.App.Core;
 
-namespace CinemaHelper.App
+namespace SoundWave.App
 {
     public class BookingViewModel : ObservableObject
     {

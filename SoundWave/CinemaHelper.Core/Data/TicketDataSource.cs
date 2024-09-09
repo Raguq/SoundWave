@@ -1,4 +1,4 @@
-﻿namespace CinemaHelper.App
+﻿namespace SoundWave.App
 {
     public class TicketDataSource
     {

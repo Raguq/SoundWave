@@ -1,7 +1,7 @@
-﻿<Application x:Class="CinemaHelper.App.App"
+﻿<Application x:Class="SoundWave.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CinemaHelper.App"
+             xmlns:local="clr-namespace:SoundWave.App"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

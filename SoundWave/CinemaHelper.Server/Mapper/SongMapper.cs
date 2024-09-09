@@ -1,12 +1,12 @@
-﻿using CinemaHelper.Server.DTOs;
+﻿using SoundWave.Server.DTOs;
 
-namespace CinemaHelper.Server.Mapper
+namespace SoundWave.Server.Mapper
 {
-    public static class CinemaMapper
+    public static class SongMapper
     {
-        public static CinemaHelper.Server.Entities.Cinema ToEntity(this AddCinemaDto game)
+        public static SoundWave.Server.Entities.Song ToEntity(this AddSongDTO game)
         {
-            return new Entities.Cinema()
+            return new Entities.Song()
             {
                 AlbumId = game.AlbumId,
                 Title = game.Title,
@@ -14,9 +14,9 @@ namespace CinemaHelper.Server.Mapper
             };
         }
 
-        public static Entities.Cinema ToEntity(this UpdateCinemaDto game, int id)
+        public static Entities.Song ToEntity(this UpdateSongDTO game, int id)
         {
-            return new Entities.Cinema()
+            return new Entities.Song()
             {
                 AlbumId = game.AlbumId,
                 Title = game.Title,
@@ -24,9 +24,9 @@ namespace CinemaHelper.Server.Mapper
             };
         }
 
-        public static CinemaDTO ToCinemaDTO(this Entities.Cinema game)
+        public static SongDTO ToCinemaDTO(this Entities.Song game)
         {
-            return new CinemaDTO(
+            return new SongDTO(
                 game.Id,
                 game.Title,
                 game.Description,

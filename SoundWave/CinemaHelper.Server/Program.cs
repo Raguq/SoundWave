@@ -1,4 +1,4 @@
-using CinemaHelper.Server.Data;
+using SoundWave.Server.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

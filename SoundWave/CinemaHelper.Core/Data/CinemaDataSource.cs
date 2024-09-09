@@ -1,6 +1,6 @@
-﻿using CinemaHelper.Core.Utility;
+﻿using SoundWave.Core.Utility;
 
-namespace CinemaHelper.Core.Data
+namespace SoundWave.Core.Data
 {
     /// <summary>
     /// Класс для доступа к данным о фильмах

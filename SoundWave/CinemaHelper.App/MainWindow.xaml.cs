@@ -1,8 +1,8 @@
-﻿using CinemaHelper.Core.Data;
-using CinemaHelper.Core.Service;
+﻿using SoundWave.Core.Data;
+using SoundWave.Core.Service;
 using System.Windows;
 
-namespace CinemaHelper.App
+namespace SoundWave.App
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

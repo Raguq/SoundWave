@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CinemaHelper.Server.Data;
-using CinemaHelper.Server.DTOs;
-using CinemaHelper.Server.Mapper;
+using SoundWave.Server.Data;
+using SoundWave.Server.DTOs;
+using SoundWave.Server.Mapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +24,7 @@ namespace Cinema.Controllers
 
         // GET: api/Cinemas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CinemaDTO>>> GetCinemas()
+        public async Task<ActionResult<IEnumerable<SongDTO>>> GetCinemas()
         {
             return await _context.Cinemas
                 .Select(x=>x.ToCinemaDTO()) 
@@ -33,9 +33,9 @@ namespace Cinema.Controllers
 
         // GET: api/Cinemas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CinemaDTO>> GetCinema(int id)
+        public async Task<ActionResult<SongDTO>> GetCinema(int id)
         {
-            CinemaHelper.Server.Entities.Cinema? game = await _context.Cinemas.FindAsync(id);
+            SoundWave.Server.Entities.Song? game = await _context.Cinemas.FindAsync(id);
 
             return game == null 
                 ? BadRequest() : 
@@ -45,7 +45,7 @@ namespace Cinema.Controllers
         // PUT: api/Cinemas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCinema(int id, UpdateCinemaDto cinema)
+        public async Task<IActionResult> PutCinema(int id, UpdateSongDTO cinema)
         {
             var existingCinema = await _context.Cinemas.FindAsync(id);
 
@@ -68,7 +68,7 @@ namespace Cinema.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCinema(AddCinemaDto newCinema)
         {
-            CinemaHelper.Server.Entities.Cinema cinema = newCinema.ToEntity();
+            SoundWave.Server.Entities.Song cinema = newCinema.ToEntity();
 
             _context.Cinemas.Add(cinema);
             await _context.SaveChangesAsync();

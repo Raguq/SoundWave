@@ -1,7 +1,7 @@
 ﻿// Сценарий: Добавление нового фильма, изменение его параметров, удаление фильма
-using CinemaHelper.Core;
-using CinemaHelper.Core.Data;
-using CinemaHelper.Core.Service;
+using SoundWave.Core;
+using SoundWave.Core.Data;
+using SoundWave.Core.Service;
 
 CinemaService dataService = new CinemaService(new CinemaDataSource());
 

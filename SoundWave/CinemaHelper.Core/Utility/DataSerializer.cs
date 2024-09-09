@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CinemaHelper.Core.Utility
+namespace SoundWave.Core.Utility
 {
     /// <summary>
     /// Класс для сериализации и десериализации объектов в формате JSON

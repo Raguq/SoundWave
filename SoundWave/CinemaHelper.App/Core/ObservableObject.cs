@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace CinemaHelper.App.Core
+namespace SoundWave.App.Core
 {
     public class ObservableObject : INotifyPropertyChanged
     {
