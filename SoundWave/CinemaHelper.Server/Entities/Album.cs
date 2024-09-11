@@ -6,9 +6,7 @@ namespace SoundWave.Server.Entities
     public class Album
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public Song Song { get; set; }
-        public int SongId { get; set; }
+        public string Name { get; set; } = "";
 
     }
 }

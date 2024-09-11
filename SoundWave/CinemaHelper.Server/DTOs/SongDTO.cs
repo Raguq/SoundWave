@@ -4,6 +4,6 @@
     public record class SongDTO(
         int Id,
         string Title,
-        string Lenght,
+        int Lenght,
         int AlbumId);
 }
