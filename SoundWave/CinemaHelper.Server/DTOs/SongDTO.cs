@@ -5,5 +5,6 @@
         int Id,
         string Title,
         int Lenght,
-        int AlbumId);
+        int AlbumId,
+        int UserId);
 }

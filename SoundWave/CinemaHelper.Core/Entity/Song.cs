@@ -9,17 +9,16 @@ namespace SoundWave.Core
     /// </summary>
     /// <param name="id">Уникальный идентификатор фильма</param>
     /// <param name="title">Название фильма</param>
-    public class Cinema
+    public class Song
     {
-        public static int _id_counter = 0;
         /// <summary>
         /// Обычный конструктор, до .NET8. В новых версиях доступны оба варианта
         /// </summary>
         /// <param name="id"></param>
         /// <param name="title"></param>
-        public Cinema(string title = "Some cinema")
+        public Song(int id,string title = "Some cinema")
         {
-            ItemId = _id_counter++;
+            ItemId = id;
             Title = title;
         }
 

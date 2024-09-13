@@ -11,7 +11,8 @@ namespace SoundWave.Server.Mapper
             {
                 Title = song.Title,
                 Lenght = song.Length,
-                AlbumId = song.AlbumId
+                AlbumId = song.AlbumId,
+                UserId = song.UserId
             };
         }
 
@@ -20,8 +21,10 @@ namespace SoundWave.Server.Mapper
             return new Entities.Song()
             {
                 Id = song.Id,
+                Title = song.Title,
+                Lenght = song.Length,
                 AlbumId = song.AlbumId,
-                Title = song.Title
+                UserId = song.UserId
             };
         }
 
@@ -31,7 +34,8 @@ namespace SoundWave.Server.Mapper
                 song.Id,
                 song.Title,
                 song.Lenght,
-                song.AlbumId
+                song.AlbumId,
+                song.UserId
             );
         }
     }

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CinemaHelper.Core\SoundWave.Core.csproj" />
+    <ProjectReference Include="..\CinemaHelper.Server\SoundWave.Server.csproj" />
   </ItemGroup>
 
 </Project>

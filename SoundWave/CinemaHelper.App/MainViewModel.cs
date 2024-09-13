@@ -19,13 +19,13 @@ namespace SoundWave.App
             }
         }
 
-        private ObservableCollection<Cinema> _cinemaList = new ObservableCollection<Cinema>();
-        public ObservableCollection<Cinema> CinemaList { get => _cinemaList; set { _cinemaList = value; OnPropertyChanged("CinemaList"); } }
+        private ObservableCollection<Song> _cinemaList = new ObservableCollection<Song>();
+        public ObservableCollection<Song> CinemaList { get => _cinemaList; set { _cinemaList = value; OnPropertyChanged("CinemaList"); } }
 
         private CinemaService cinemaService;
 
-        private Cinema _selectedCinema;
-        public Cinema SelectedCinema
+        private Song _selectedCinema;
+        public Song SelectedCinema
         {
             get => _selectedCinema;
             set
@@ -38,7 +38,7 @@ namespace SoundWave.App
         public MainViewModel(CinemaService service)
         {
             cinemaService = service;
-            CinemaList = new ObservableCollection<Cinema>(cinemaService.GetAll());
+            CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
         }
 
         private RelayCommand addCommand;
@@ -47,12 +47,12 @@ namespace SoundWave.App
             get
             {
                 return addCommand ??
-                  (addCommand = new RelayCommand(obj =>
+                  (addCommand = new AsyncRelayCommand(() => Task.Run(() => 
                   {
-                      cinemaService.Create(
-                          new Cinema(Input)
+                      await cinemaService.Create(
+                          new Song(0,Input)
                           );
-                      CinemaList = new ObservableCollection<Cinema>(cinemaService.GetAll());
+                      CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
                   }));
             }
         }
@@ -68,7 +68,7 @@ namespace SoundWave.App
                       cinemaService.Delete(
                           SelectedCinema.ItemId
                           );
-                      CinemaList = new ObservableCollection<Cinema>(cinemaService.GetAll());
+                      CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
                   }));
             }
         }
@@ -85,7 +85,7 @@ namespace SoundWave.App
                       cinemaService.Update(
                           SelectedCinema
                           );
-                      CinemaList = new ObservableCollection<Cinema>(cinemaService.GetAll());
+                      CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
                   }));
             }
         }

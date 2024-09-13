@@ -27,7 +27,7 @@ namespace SoundWave.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SongDTO>>> GetSongs()
         {
-            return Ok((await _context.Albums.ToListAsync()).Select(x => x.ToAlbumDTO()));
+            return Ok((await _context.Songs.ToListAsync()).Select(x => x.ToSongDTO()));
         }
 
         // GET: api/Songs/5
@@ -47,11 +47,14 @@ namespace SoundWave.Server.Controllers
         // PUT: api/Songs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public async Task<IActionResult> PutSong(int id, UpdateSongDTO song)
+        public async Task<IActionResult> PutSong(UpdateSongDTO song)
         {
-
-            _context.Entry(song.ToEntity()).CurrentValues.SetValues(song.ToEntity());
-
+            var existing = await _context.Songs.FindAsync(song.Id);
+            if (existing != null)
+            {
+                _context.Entry(existing).CurrentValues.SetValues(song.ToEntity());
+                await _context.SaveChangesAsync();
+            }
             return Ok();
         }
 

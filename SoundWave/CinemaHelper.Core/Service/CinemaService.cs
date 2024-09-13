@@ -1,4 +1,5 @@
 ﻿using SoundWave.Core.Data;
+using SoundWave.Server.DTOs;
 
 namespace SoundWave.Core.Service
 {
@@ -7,18 +8,23 @@ namespace SoundWave.Core.Service
     /// </summary>
     public class CinemaService
     {
-        private CinemaDataSource _dataSource;
-        private List<Cinema> _cinemas = new List<Cinema>();
-        public CinemaService(CinemaDataSource dataSource)
+        private SongRemoteDataSource _dataSource;
+        private List<Song> _cinemas = new List<Song>();
+        public CinemaService(SongRemoteDataSource dataSource)
         {
             _dataSource = dataSource;
-            _cinemas = _dataSource.Get();
         }
+
+        private async Task Init()
+        {
+            _cinemas = (await _dataSource.GetSongList()).Select(x => new Song(x.Id, x.Title)).ToList();
+        }
+
         /// <summary>
         /// Получить все фильмы
         /// </summary>
         /// <returns></returns>
-        public List<Cinema> GetAll()
+        public List<Song> GetAll()
         {
             return _cinemas;
         }
@@ -27,9 +33,9 @@ namespace SoundWave.Core.Service
         /// </summary>
         /// <param name="id">Идентификатор фильма</param>
         /// <returns>null в случае, если фильм не найден</returns>
-        public Cinema Get(int id)
+        public Song Get(int id)
         {
-            foreach (Cinema cinema in _cinemas)
+            foreach (Song cinema in _cinemas)
                 if (cinema.ItemId == id)
                     return cinema;
             return null;
@@ -38,35 +44,37 @@ namespace SoundWave.Core.Service
         /// Добавить новый фильм
         /// </summary>
         /// <param name="cinema"></param>
-        public void Create(Cinema cinema)
+        public async Task Create(Song cinema)
         {
             _cinemas.Add(cinema);
-            _dataSource.Write(_cinemas);
+            await _dataSource.PostSong(new AddSongDTO(
+                cinema.Title,
+                111,
+                1,
+                1
+                ));
         }
         /// <summary>
         /// Удалить фильм по идентификатору
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            foreach (Cinema cinema in _cinemas)
-                if (cinema.ItemId == id)
-                {
-                    _cinemas.Remove(cinema);
-                    break;
-                }
-            _dataSource.Write(_cinemas);
+            await _dataSource.DeleteSong(id);
         }
         /// <summary>
         /// Обновить фильм
         /// </summary>
         /// <param name="cinema"></param>
-        public void Update(Cinema cinema)
+        public async Task Update(Song cinema)
         {
-            for (int i = 0; i < _cinemas.Count; i++)
-                if (cinema.ItemId == _cinemas[i].ItemId)
-                    _cinemas[i] = cinema;
-            _dataSource.Write(_cinemas);
+            await _dataSource.PutSong(new UpdateSongDTO(
+                            cinema.ItemId,
+                            cinema.Title,
+                            111,
+                            1,
+                            1
+                            ));
         }
 
     }

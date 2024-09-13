@@ -17,19 +17,19 @@ namespace SoundWave.Core.Data
         /// и их десериализация
         /// </summary>
         /// <returns></returns>
-        public List<Cinema> Get()
+        public List<Song> Get()
         {
-            if (File.Exists(path))
-            {
-                using(StreamReader reader = new StreamReader(path))
-                {
-                    string data = reader.ReadToEnd();
-                    var tmp = DataSerializer.Deserialize<List<Cinema>>(data) ?? [];
-                    Cinema._id_counter = tmp.Count > 0 ? tmp.Select(x => x.ItemId).Max() + 1 : 0;
-                    return tmp;
-                }
+            //if (File.Exists(path))
+            //{
+            //    using(StreamReader reader = new StreamReader(path))
+            //    {
+            //        string data = reader.ReadToEnd();
+            //        var tmp = DataSerializer.Deserialize<List<Song>>(data) ?? [];
+            //        Song._id_counter = tmp.Count > 0 ? tmp.Select(x => x.ItemId).Max() + 1 : 0;
+            //        return tmp;
+            //    }
                 
-            }
+            //}
             return [];
         }
 
@@ -38,7 +38,7 @@ namespace SoundWave.Core.Data
         /// и их десериализация
         /// </summary>
         /// <returns></returns>
-        public void Write(List<Cinema> data)
+        public void Write(List<Song> data)
         {
             using (StreamWriter writer = new StreamWriter(path,false)) {
 
