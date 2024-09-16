@@ -2,9 +2,9 @@
 {
     public class TicketService
     {
-        private TicketDataSource ticketDataSource;
+        private AlbumRemoteDataSource ticketDataSource;
 
-        public TicketService(TicketDataSource ticketDataSource)
+        public TicketService(AlbumRemoteDataSource ticketDataSource)
         {
             this.ticketDataSource = ticketDataSource;
         }

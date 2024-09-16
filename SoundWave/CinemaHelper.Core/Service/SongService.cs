@@ -6,18 +6,18 @@ namespace SoundWave.Core.Service
     /// <summary>
     /// Класс, осуществляющий работу с фильмами 
     /// </summary>
-    public class CinemaService
+    public class SongService
     {
         private SongRemoteDataSource _dataSource;
-        private List<Song> _cinemas = new List<Song>();
-        public CinemaService(SongRemoteDataSource dataSource)
+        private List<Song> _songs = new List<Song>();
+        public SongService(SongRemoteDataSource dataSource)
         {
             _dataSource = dataSource;
         }
 
         private async Task Init()
         {
-            _cinemas = (await _dataSource.GetSongList()).Select(x => new Song(x.Id, x.Title)).ToList();
+            _songs = (await _dataSource.GetSongList()).Select(x => new Song(x.Id, x.Title)).ToList();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace SoundWave.Core.Service
         /// <returns></returns>
         public List<Song> GetAll()
         {
-            return _cinemas;
+            return _songs;
         }
         /// <summary>
         /// Получить фильм по идентификатору
@@ -35,7 +35,7 @@ namespace SoundWave.Core.Service
         /// <returns>null в случае, если фильм не найден</returns>
         public Song Get(int id)
         {
-            foreach (Song cinema in _cinemas)
+            foreach (Song cinema in _songs)
                 if (cinema.ItemId == id)
                     return cinema;
             return null;
@@ -46,7 +46,7 @@ namespace SoundWave.Core.Service
         /// <param name="cinema"></param>
         public async Task Create(Song cinema)
         {
-            _cinemas.Add(cinema);
+            _songs.Add(cinema);
             await _dataSource.PostSong(new AddSongDTO(
                 cinema.Title,
                 111,

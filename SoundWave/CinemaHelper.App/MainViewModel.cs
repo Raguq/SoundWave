@@ -22,7 +22,7 @@ namespace SoundWave.App
         private ObservableCollection<Song> _cinemaList = new ObservableCollection<Song>();
         public ObservableCollection<Song> CinemaList { get => _cinemaList; set { _cinemaList = value; OnPropertyChanged("CinemaList"); } }
 
-        private CinemaService cinemaService;
+        private SongService cinemaService;
 
         private Song _selectedCinema;
         public Song SelectedCinema
@@ -35,58 +35,64 @@ namespace SoundWave.App
             }
         }
 
-        public MainViewModel(CinemaService service)
+        public MainViewModel(SongService service)
         {
             cinemaService = service;
             CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
         }
 
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        private AsyncRelayCommand addCommand;
+        public AsyncRelayCommand AddCommand
         {
             get
             {
-                return addCommand ??
-                  (addCommand = new AsyncRelayCommand(() => Task.Run(() => 
-                  {
-                      await cinemaService.Create(
-                          new Song(0,Input)
-                          );
-                      CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
-                  }));
+                return addCommand ?? (
+                    addCommand = new AsyncRelayCommand(() => Task.Run(
+                          async () =>
+                          {
+                              await cinemaService.Create(
+                                  new Song(0, Input)
+                                  );
+                              CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
+                          }))
+                    );
             }
         }
 
-        private RelayCommand deleteCommand;
-        public RelayCommand DeleteCommand
+        private AsyncRelayCommand deleteCommand;
+        public AsyncRelayCommand DeleteCommand
         {
             get
             {
-                return deleteCommand ??
-                  (deleteCommand = new RelayCommand(obj =>
-                  {
-                      cinemaService.Delete(
-                          SelectedCinema.ItemId
-                          );
-                      CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
-                  }));
+                return deleteCommand ?? (
+                    deleteCommand = new AsyncRelayCommand(() => Task.Run(
+                        async () =>
+                        {
+                            await cinemaService.Delete(
+                                SelectedCinema.ItemId
+                                  );
+                            CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
+                        }))
+                    );
             }
         }
 
-        private RelayCommand editCommand;
-        public RelayCommand EditCommand
+        private AsyncRelayCommand editCommand;
+        public AsyncRelayCommand EditCommand
         {
             get
             {
                 return editCommand ??
-                  (editCommand = new RelayCommand(obj =>
-                  {
-                      SelectedCinema.Title = Input;
-                      cinemaService.Update(
+                  (editCommand = new AsyncRelayCommand(() => Task.Run(
+                      async () =>
+                      {
+                        SelectedCinema.Title = Input;
+                        await cinemaService.Update(
                           SelectedCinema
                           );
                       CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
-                  }));
+                  }))
+                  );
             }
         }
 

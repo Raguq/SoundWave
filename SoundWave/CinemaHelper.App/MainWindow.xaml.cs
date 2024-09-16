@@ -9,8 +9,8 @@ namespace SoundWave.App
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainViewModel cinemaListViewModel = new MainViewModel(new CinemaService(new CinemaDataSource()));
-        private BookingViewModel bokingViewModel = new BookingViewModel(new TicketService(new TicketDataSource()));
+        private MainViewModel cinemaListViewModel = new MainViewModel(new SongService(new SongRemoteDataSource()));
+        private BookingViewModel bokingViewModel = new BookingViewModel(new TicketService(new AlbumRemoteDataSource()));
 
 
         public MainWindow()

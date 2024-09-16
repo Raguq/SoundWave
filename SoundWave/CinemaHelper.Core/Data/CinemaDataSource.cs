@@ -5,7 +5,7 @@ namespace SoundWave.Core.Data
     /// <summary>
     /// Класс для доступа к данным о фильмах
     /// </summary>
-    public class CinemaDataSource
+    public class RemoteDataSource
     {
         /// <summary>
         /// Относительный путь к файлу, где хранятся данные
