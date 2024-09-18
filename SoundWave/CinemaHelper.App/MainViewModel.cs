@@ -39,7 +39,7 @@ namespace SoundWave.App
         public MainViewModel(SongService service)
         {
             songService = service;
-            SongList = new ObservableCollection<SongDTO>(songService.GetAll());
+            SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
         }
 
         private AsyncRelayCommand addCommand;
@@ -54,7 +54,7 @@ namespace SoundWave.App
                               await songService.Create(
                                   new SongDTO(0, Input)
                                   );
-                              SongList = new ObservableCollection<SongDTO>(songService.GetAll());
+                              SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
                           }))
                     );
             }
