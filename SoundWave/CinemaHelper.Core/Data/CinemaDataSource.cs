@@ -3,14 +3,14 @@
 namespace SoundWave.Core.Data
 {
     /// <summary>
-    /// Класс для доступа к данным о фильмах
+    /// Класс для доступа к данным о песнях
     /// </summary>
     public class RemoteDataSource
     {
         /// <summary>
         /// Относительный путь к файлу, где хранятся данные
         /// </summary>
-        private readonly string path = ".\\cinema_data.json";
+        private readonly string path = ".\\song_data.json";
 
         /// <summary>
         /// Метод чтения данных в формате JSON 

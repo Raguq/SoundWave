@@ -16,7 +16,7 @@ namespace SoundWave.Core
         /// </summary>
         /// <param name="id"></param>
         /// <param name="title"></param>
-        public Song(int id,string title = "Some cinema")
+        public Song(int id,string title = "Some songs")
         {
             ItemId = id;
             Title = title;

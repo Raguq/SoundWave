@@ -1,6 +1,7 @@
 ﻿using SoundWave.App.Core;
 using SoundWave.Core;
 using SoundWave.Core.Service;
+using SoundWave.Server.DTOs;
 using System.Collections.ObjectModel;
 
 namespace SoundWave.App
@@ -19,26 +20,26 @@ namespace SoundWave.App
             }
         }
 
-        private ObservableCollection<Song> _cinemaList = new ObservableCollection<Song>();
-        public ObservableCollection<Song> CinemaList { get => _cinemaList; set { _cinemaList = value; OnPropertyChanged("CinemaList"); } }
+        private ObservableCollection<SongDTO> _songList = new ObservableCollection<SongDTO>();
+        public ObservableCollection<SongDTO> SongList { get => _songList; set { _songList = value; OnPropertyChanged("SongList"); } }
 
-        private SongService cinemaService;
+        private SongService songService;
 
-        private Song _selectedCinema;
-        public Song SelectedCinema
+        private SongDTO _selectedSong;
+        public SongDTO SelectedSong
         {
-            get => _selectedCinema;
+            get => _selectedSong;
             set
             {
-                _selectedCinema = value;
-                OnPropertyChanged("SelectedCinema");
+                _selectedSong = value;
+                OnPropertyChanged("SelectedSong");
             }
         }
 
         public MainViewModel(SongService service)
         {
-            cinemaService = service;
-            CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
+            songService = service;
+            SongList = new ObservableCollection<SongDTO>(songService.GetAll());
         }
 
         private AsyncRelayCommand addCommand;
@@ -50,10 +51,10 @@ namespace SoundWave.App
                     addCommand = new AsyncRelayCommand(() => Task.Run(
                           async () =>
                           {
-                              await cinemaService.Create(
-                                  new Song(0, Input)
+                              await songService.Create(
+                                  new SongDTO(0, Input)
                                   );
-                              CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
+                              SongList = new ObservableCollection<SongDTO>(songService.GetAll());
                           }))
                     );
             }
@@ -68,10 +69,10 @@ namespace SoundWave.App
                     deleteCommand = new AsyncRelayCommand(() => Task.Run(
                         async () =>
                         {
-                            await cinemaService.Delete(
-                                SelectedCinema.ItemId
+                            await songService.Delete(
+                                SelectedSong.ItemId
                                   );
-                            CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
+                            SongList = new ObservableCollection<SongDTO>(songService.GetAll());
                         }))
                     );
             }
@@ -86,11 +87,11 @@ namespace SoundWave.App
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
                       {
-                        SelectedCinema.Title = Input;
-                        await cinemaService.Update(
-                          SelectedCinema
+                        SelectedSong.Title = Input;
+                        await songService.Update(
+                          SelectedSong
                           );
-                      CinemaList = new ObservableCollection<Song>(cinemaService.GetAll());
+                      SongList = new ObservableCollection<SongDTO>(songService.GetAll());
                   }))
                   );
             }
