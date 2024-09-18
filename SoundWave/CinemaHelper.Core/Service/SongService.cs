@@ -4,54 +4,47 @@ using SoundWave.Server.DTOs;
 namespace SoundWave.Core.Service
 {
     /// <summary>
-    /// Класс, осуществляющий работу с фильмами 
+    /// Класс, осуществляющий работу с песнями 
     /// </summary>
     public class SongService
     {
         private SongRemoteDataSource _dataSource;
-        private List<Song> _songs = new List<Song>();
         public SongService(SongRemoteDataSource dataSource)
         {
             _dataSource = dataSource;
         }
 
-        private async Task Init()
-        {
-            _songs = (await _dataSource.GetSongList()).Select(x => new Song(x.Id, x.Title)).ToList();
-        }
-
         /// <summary>
-        /// Получить все фильмы
+        /// Получить все песни
         /// </summary>
         /// <returns></returns>
-        public List<Song> GetAll()
+        public async Task<List<SongDTO>> GetAll()
         {
-            return _songs;
+            return await _dataSource.GetSongList();
         }
         /// <summary>
-        /// Получить фильм по идентификатору
+        /// Получить песню по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор фильма</param>
-        /// <returns>null в случае, если фильм не найден</returns>
-        public Song Get(int id)
+        /// <param name="id">Идентификатор песни</param>
+        /// <returns>null в случае, если песня не найден</returns>
+        public async Task<SongDTO?> Get(int id)
         {
-            foreach (Song cinema in _songs)
-                if (cinema.ItemId == id)
-                    return cinema;
+            foreach (SongDTO song in await _dataSource.GetSongList())
+                if (song.Id == id)
+                    return song;
             return null;
         }
         /// <summary>
-        /// Добавить новый фильм
+        /// Добавить новую песню
         /// </summary>
-        /// <param name="cinema"></param>
-        public async Task Create(Song cinema)
+        /// <param name="song"></param>
+        public async Task Create(SongDTO song)
         {
-            _songs.Add(cinema);
             await _dataSource.PostSong(new AddSongDTO(
-                cinema.Title,
-                111,
-                1,
-                1
+                song.Title,
+                song.Lenght,
+                song.AlbumId,
+                song.UserId
                 ));
         }
         /// <summary>
@@ -63,17 +56,17 @@ namespace SoundWave.Core.Service
             await _dataSource.DeleteSong(id);
         }
         /// <summary>
-        /// Обновить фильм
+        /// Обновить песню
         /// </summary>
-        /// <param name="cinema"></param>
-        public async Task Update(Song cinema)
+        /// <param name="song"></param>
+        public async Task Update(UpdateSongDTO song)
         {
             await _dataSource.PutSong(new UpdateSongDTO(
-                            cinema.ItemId,
-                            cinema.Title,
-                            111,
-                            1,
-                            1
+                            song.Id,
+                            song.Title,
+                            song.Length,
+                            song.AlbumId,
+                            song.UserId
                             ));
         }
 
