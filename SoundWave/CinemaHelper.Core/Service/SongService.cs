@@ -61,13 +61,20 @@ namespace SoundWave.Core.Service
         /// <param name="song"></param>
         public async Task Update(UpdateSongDTO song)
         {
-            await _dataSource.PutSong(new UpdateSongDTO(
-                            song.Id,
-                            song.Title,
-                            song.Length,
-                            song.AlbumId,
-                            song.UserId
-                            ));
+            try
+            {
+                await _dataSource.PutSong(new UpdateSongDTO(
+                                song.Id,
+                                song.Title,
+                                song.Length,
+                                song.AlbumId,
+                                song.UserId
+                                ));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }

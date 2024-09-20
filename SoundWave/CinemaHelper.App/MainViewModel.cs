@@ -39,8 +39,14 @@ namespace SoundWave.App
         public MainViewModel(SongService service)
         {
             songService = service;
+            Task.Run(() => Fetch());
+        }
+
+        public async Task Fetch()
+        {
             SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
         }
+
 
         private AsyncRelayCommand addCommand;
         public AsyncRelayCommand AddCommand
@@ -52,9 +58,9 @@ namespace SoundWave.App
                           async () =>
                           {
                               await songService.Create(
-                                  new SongDTO(0, Input)
+                                  new SongDTO(0, Input, 0, 0, 0)
                                   );
-                              SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
+                              await Fetch();
                           }))
                     );
             }
@@ -70,9 +76,9 @@ namespace SoundWave.App
                         async () =>
                         {
                             await songService.Delete(
-                                SelectedSong.ItemId
+                                SelectedSong.Id
                                   );
-                            SongList = new ObservableCollection<SongDTO>(songService.GetAll());
+                            await Fetch();
                         }))
                     );
             }
@@ -87,12 +93,17 @@ namespace SoundWave.App
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
                       {
-                        SelectedSong.Title = Input;
-                        await songService.Update(
-                          SelectedSong
-                          );
-                      SongList = new ObservableCollection<SongDTO>(songService.GetAll());
-                  }))
+                          await songService.Update(
+                            new UpdateSongDTO(
+                                SelectedSong.Id,
+                                Input,
+                                0,
+                                0,
+                                0
+                                )
+                            );
+                          await Fetch();
+                      }))
                   );
             }
         }
