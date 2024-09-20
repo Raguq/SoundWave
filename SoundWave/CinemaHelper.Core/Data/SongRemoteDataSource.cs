@@ -60,7 +60,7 @@ namespace SoundWave.Core.Data
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Добавление песни завершилось с ошибкой!");
             }
             return;
         }
@@ -73,7 +73,7 @@ namespace SoundWave.Core.Data
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Изменение песни завершилось с ошибкой!");
             }
             return;
         }
@@ -85,7 +85,7 @@ namespace SoundWave.Core.Data
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Удаление песни завершилось с ошибкой!");
             }
             return;
         }
