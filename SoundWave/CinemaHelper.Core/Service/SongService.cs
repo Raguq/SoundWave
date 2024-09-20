@@ -40,12 +40,19 @@ namespace SoundWave.Core.Service
         /// <param name="song"></param>
         public async Task Create(SongDTO song)
         {
-            await _dataSource.PostSong(new AddSongDTO(
-                song.Title,
-                song.Lenght,
-                song.AlbumId,
-                song.UserId
-                ));
+            try
+            {
+                await _dataSource.PostSong(new AddSongDTO(
+                    song.Title,
+                    song.Lenght,
+                    song.AlbumId,
+                    song.UserId
+                    ));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         /// <summary>
         /// Удалить фильм по идентификатору
@@ -53,7 +60,14 @@ namespace SoundWave.Core.Service
         /// <param name="id"></param>
         public async Task Delete(int id)
         {
-            await _dataSource.DeleteSong(id);
+            try
+            {
+                await _dataSource.DeleteSong(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         /// <summary>
         /// Обновить песню
