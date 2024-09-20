@@ -3,6 +3,7 @@ using SoundWave.Core;
 using SoundWave.Core.Service;
 using SoundWave.Server.DTOs;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace SoundWave.App
 {
@@ -39,7 +40,7 @@ namespace SoundWave.App
         public MainViewModel(SongService service)
         {
             songService = service;
-            SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
+            //SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
         }
 
         private AsyncRelayCommand addCommand;
@@ -51,10 +52,23 @@ namespace SoundWave.App
                     addCommand = new AsyncRelayCommand(() => Task.Run(
                           async () =>
                           {
-                              await songService.Create(
-                                  new SongDTO(0, Input)
-                                  );
-                              SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
+                              try
+                              {
+                                  await songService.Create(
+                                      new SongDTO(0, Input)
+                                      );
+                                  SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
+                              }
+                              catch (Exception ex) 
+                              {
+                                  MessageBox.Show(
+                                      ex.Message,
+                                      "ОШИБКА",
+                                      MessageBoxButton.OK,
+                                      MessageBoxImage.Error
+                                      );
+                              }
+                              
                           }))
                     );
             }
