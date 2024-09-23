@@ -29,7 +29,9 @@ namespace SoundWave.Server.Migrations
                 {
                     UserId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Login = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,8 +73,8 @@ namespace SoundWave.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "Name" },
-                values: new object[] { 1, "Test_user" });
+                columns: new[] { "UserId", "Login", "Name", "Password" },
+                values: new object[] { 1, "", "Test_user", "" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Songs_AlbumId",

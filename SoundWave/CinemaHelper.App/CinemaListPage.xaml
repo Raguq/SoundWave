@@ -19,8 +19,8 @@
     VerticalAlignment="Center"
     >
             <ListBox 
-        ItemsSource="{Binding CinemaList}"
-        SelectedItem="{Binding SelectedCinema}"
+        ItemsSource="{Binding SongList}"
+        SelectedItem="{Binding SelectedSong}"
         >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -43,18 +43,24 @@
         Margin="10"
         x:Name="Input"
         Text="{Binding Input}"/>
-            <TextBlock 
+            <TextBox 
+FontSize="30" 
+Background="LightGray"
+Margin="10"
+x:Name="Input2"
+Text="{Binding Input2}"/>
+            <!--<TextBlock 
         FontSize="30" 
         Background="LightGreen"
         Margin="10"
         x:Name="SelectedFilmTitle"
-        Text="{Binding Path=SelectedCinema.Title}"/>
+        Text="{Binding Path=SelectedSong.Title}"/>-->
             <Button 
         Margin="10 10 10 0"
-        Height="100"
+        Height="50"
         Width="300"
         Content="Добавить"
-        Background="Coral"
+        Background="DarkGreen"
         FontSize="30"
         BorderBrush="Transparent"
         x:Name="Add"
@@ -62,7 +68,7 @@
         />
             <Button 
         Margin="10 10 10 0"
-        Height="100"
+        Height="50"
         Width="300"
         Content="Удалить"
         Background="Red"
@@ -73,7 +79,7 @@
         />
             <Button 
         Margin="10"
-        Height="100"
+        Height="50"
         Width="300"
         Content="Изменить"
         Background="Yellow"

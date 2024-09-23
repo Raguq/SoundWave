@@ -1,6 +1,6 @@
-@Song_HostAddress = http://localhost:5042
+@Song_HostAddress = http://localhost:7236
 
-GET {{Song_HostAddress}}/weatherforecast/
+GET {{Song_HostAddress}}/SoundWave/
 Accept: application/json
 
 ###

@@ -10,6 +10,7 @@ namespace SoundWave.App
     {
 
         private string _input = string.Empty;
+        private int _input2 = 0;
         public string Input
         {
             get => _input;
@@ -17,6 +18,15 @@ namespace SoundWave.App
             {
                 _input = value;
                 OnPropertyChanged("Input");
+            }
+        }
+        public int Input2
+        {
+            get => _input2;
+            set
+            {
+                _input2 = value;
+                OnPropertyChanged("Input2");
             }
         }
 
@@ -58,7 +68,7 @@ namespace SoundWave.App
                           async () =>
                           {
                               await songService.Create(
-                                  new SongDTO(0, Input, 0, 0, 0)
+                                  new SongDTO(0, Input, Input2, SelectedSong.AlbumId, SelectedSong.UserId)
                                   );
                               await Fetch();
                           }))
@@ -97,9 +107,9 @@ namespace SoundWave.App
                             new UpdateSongDTO(
                                 SelectedSong.Id,
                                 Input,
-                                0,
-                                0,
-                                0
+                                Input2,
+                                SelectedSong.AlbumId,
+                                SelectedSong.UserId
                                 )
                             );
                           await Fetch();

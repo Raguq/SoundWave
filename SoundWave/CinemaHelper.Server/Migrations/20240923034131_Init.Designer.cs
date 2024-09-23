@@ -10,7 +10,7 @@ using SoundWave.Server.Data;
 namespace SoundWave.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240913160648_Init")]
+    [Migration("20240923034131_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -75,7 +75,15 @@ namespace SoundWave.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -87,7 +95,9 @@ namespace SoundWave.Server.Migrations
                         new
                         {
                             UserId = 1,
-                            Name = "Test_user"
+                            Login = "",
+                            Name = "Test_user",
+                            Password = ""
                         });
                 });
 

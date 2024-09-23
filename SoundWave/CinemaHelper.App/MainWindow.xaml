@@ -12,23 +12,12 @@
                 Margin="10 10 10 0"
                 Height="70"
                 Width="250"
-                Content="Список фильмов"
+                Content="Список песен"
                 Background="Purple"
                 FontSize="30"
                 BorderBrush="Transparent"
                 x:Name="CinemaListPage"
                 Click="CinemaListPage_Click"
-                />
-            <Button 
-                Margin="10 10 10 0"
-                Height="70"
-                Width="250"
-                Content="Бронирование"
-                Background="Purple"
-                FontSize="30"
-                BorderBrush="Transparent"
-                x:Name="BokingPage"
-                Click="BokingPage_Click"
                 />
         </StackPanel>
             <Frame x:Name="Main"
