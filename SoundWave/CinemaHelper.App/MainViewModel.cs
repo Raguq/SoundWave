@@ -3,6 +3,7 @@ using SoundWave.Core;
 using SoundWave.Core.Service;
 using SoundWave.Server.DTOs;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace SoundWave.App
 {
@@ -10,7 +11,8 @@ namespace SoundWave.App
     {
 
         private string _input = string.Empty;
-        private int _input2 = 0;
+        private int? _input2 = null;
+        private List<AlbumDTO> _album;
         public string Input
         {
             get => _input;
@@ -20,7 +22,7 @@ namespace SoundWave.App
                 OnPropertyChanged("Input");
             }
         }
-        public int Input2
+        public int? Input2
         {
             get => _input2;
             set
@@ -29,6 +31,22 @@ namespace SoundWave.App
                 OnPropertyChanged("Input2");
             }
         }
+        private ObservableCollection<AlbumDTO> _albumList = new ObservableCollection<AlbumDTO>();
+        public ObservableCollection<AlbumDTO> AlbumList { get => _albumList; set { _albumList = value; OnPropertyChanged("AlbumList"); } }
+        private AlbumService albumService;
+
+        private AlbumDTO _selectedAlbum;
+
+        public AlbumDTO SelectedAlbum
+        {
+            get => _selectedAlbum;
+            set
+            {
+                _selectedAlbum = value;
+                OnPropertyChanged("SelectedAlbum");
+            }
+        }
+
 
         private ObservableCollection<SongDTO> _songList = new ObservableCollection<SongDTO>();
         public ObservableCollection<SongDTO> SongList { get => _songList; set { _songList = value; OnPropertyChanged("SongList"); } }
@@ -46,15 +64,24 @@ namespace SoundWave.App
             }
         }
 
-        public MainViewModel(SongService service)
+        public MainViewModel(SongService service, AlbumService albumService)
         {
             songService = service;
+            this.albumService = albumService;
             Task.Run(() => Fetch());
         }
 
         public async Task Fetch()
         {
-            SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
+            try
+            {
+                SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
+                AlbumList = new ObservableCollection<AlbumDTO>(await albumService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -63,16 +90,25 @@ namespace SoundWave.App
         {
             get
             {
+
                 return addCommand ?? (
                     addCommand = new AsyncRelayCommand(() => Task.Run(
                           async () =>
                           {
-                              await songService.Create(
-                                  new SongDTO(0, Input, Input2, SelectedSong.AlbumId, SelectedSong.UserId)
-                                  );
-                              await Fetch();
+                              try
+                              {
+                                  await songService.Create(
+                                          new SongDTO(0, Input, Input2 ?? 0, SelectedAlbum.Id, 1)
+                                          );
+                                  await Fetch();
+                              }
+                              catch (Exception ex)
+                              {
+                                  MessageBox.Show(ex.Message);
+                              }
                           }))
                     );
+
             }
         }
 
@@ -81,16 +117,25 @@ namespace SoundWave.App
         {
             get
             {
+
                 return deleteCommand ?? (
                     deleteCommand = new AsyncRelayCommand(() => Task.Run(
                         async () =>
                         {
-                            await songService.Delete(
-                                SelectedSong.Id
-                                  );
-                            await Fetch();
+                            try
+                            {
+                                await songService.Delete(
+                                        SelectedSong.Id
+                                          );
+                                await Fetch();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
                         }))
                     );
+
             }
         }
 
@@ -99,22 +144,31 @@ namespace SoundWave.App
         {
             get
             {
+
                 return editCommand ??
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
                       {
-                          await songService.Update(
-                            new UpdateSongDTO(
-                                SelectedSong.Id,
-                                Input,
-                                Input2,
-                                SelectedSong.AlbumId,
-                                SelectedSong.UserId
-                                )
-                            );
-                          await Fetch();
+                          try
+                          {
+                              await songService.Update(
+                                    new UpdateSongDTO(
+                                        SelectedSong.Id,
+                                        Input,
+                                        Input2 ?? 0,
+                                        SelectedSong.AlbumId,
+                                        SelectedSong.UserId
+                                        )
+                                    );
+                              await Fetch();
+                          }
+                          catch (Exception ex)
+                          {
+                              MessageBox.Show(ex.Message);
+                          }
                       }))
                   );
+
             }
         }
 

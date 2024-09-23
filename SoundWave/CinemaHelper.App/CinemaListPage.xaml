@@ -25,7 +25,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="40" Text="{Binding ItemId}"/>
+                            <TextBlock FontSize="40" Text="{Binding Id}"/>
                             <TextBlock FontSize="40" Text="{Binding Title}"/>
                         </StackPanel>
                     </DataTemplate>
@@ -49,6 +49,13 @@ Background="LightGray"
 Margin="10"
 x:Name="Input2"
 Text="{Binding Input2}"/>
+            
+<ComboBox Name="Альбомы"
+    Height="40" FontSize="30"
+    ItemsSource ="{Binding AlbumList}"
+    SelectedValue="{Binding SelectedAlbum}"
+/>
+
             <!--<TextBlock 
         FontSize="30" 
         Background="LightGreen"

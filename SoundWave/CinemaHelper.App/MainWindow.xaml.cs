@@ -9,8 +9,7 @@ namespace SoundWave.App
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainViewModel cinemaListViewModel = new MainViewModel(new SongService(new SongRemoteDataSource()));
-        private BookingViewModel bokingViewModel = new BookingViewModel(new TicketService(new AlbumRemoteDataSource()));
+        private MainViewModel cinemaListViewModel = new MainViewModel(new SongService(new SongRemoteDataSource()), new AlbumService(new AlbumRemoteDataSource()));
 
 
         public MainWindow()
@@ -18,10 +17,6 @@ namespace SoundWave.App
             InitializeComponent();
         }
 
-        private void BokingPage_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = new BookingPage(bokingViewModel);
-        }
 
         private void CinemaListPage_Click(object sender, RoutedEventArgs e)
         {

@@ -22,7 +22,7 @@ namespace SoundWave.App
         {
             AlbumDTO album = null;
 
-            HttpResponseMessage response = await client.GetAsync($"api/Album/{id}");
+            HttpResponseMessage response = await client.GetAsync($"api/Albums/{id}");
             if (response.IsSuccessStatusCode)
             {
                 album = DataSerializer.Deserialize<AlbumDTO>(
@@ -35,7 +35,7 @@ namespace SoundWave.App
         {
 
             HttpResponseMessage response = await client.GetAsync(
-                "api/Album");
+                "api/Albums");
             response.EnsureSuccessStatusCode();
 
             List<AlbumDTO> AlbumResponse = new List<AlbumDTO>();
@@ -49,7 +49,7 @@ namespace SoundWave.App
         public async Task PostAlbum(AddAlbumDTO addAlbumDTO)
         {
             HttpResponseMessage response = await client.PostAsync(
-                ("api/Album"), JsonContent.Create(addAlbumDTO));
+                ("api/Albums"), JsonContent.Create(addAlbumDTO));
 
             if (!response.IsSuccessStatusCode)
             {
@@ -62,7 +62,7 @@ namespace SoundWave.App
             var json = JsonContent.Create(album);
 
             HttpResponseMessage response = await client.PutAsync(
-                $"api/Album", json);
+                $"api/Albums", json);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -73,7 +73,7 @@ namespace SoundWave.App
 
         public async Task DeleteAlbum(int id)
         {
-            HttpResponseMessage response = await client.DeleteAsync($"api/Album/{id}");
+            HttpResponseMessage response = await client.DeleteAsync($"api/Albums/{id}");
             response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)

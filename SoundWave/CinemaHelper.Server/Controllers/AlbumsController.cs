@@ -13,7 +13,6 @@ using SoundWave.Server.Mapper;
 
 namespace SoundWave.Server.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumsController : ControllerBase
