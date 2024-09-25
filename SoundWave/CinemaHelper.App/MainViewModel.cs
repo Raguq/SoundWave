@@ -1,14 +1,33 @@
-﻿using SoundWave.App.Core;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using SoundWave.App.Core;
 using SoundWave.Core;
 using SoundWave.Core.Service;
 using SoundWave.Server.DTOs;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 
 namespace SoundWave.App
 {
     public class MainViewModel : ObservableObject
     {
+
+        private HubConnection _connection;
+        private string _userName;
+        private string _message;
+        public string UserName
+        {
+            get => _userName;
+            set => SetProperty(ref _userName, value);
+        }
+
+        public string Message
+        {
+            get => _message;
+            set => SetProperty(ref _message, value);
+        }
+
+        public RelayCommand SendFileCommand { get; }
 
         private string _input = string.Empty;
         private int? _input2 = null;
@@ -68,6 +87,7 @@ namespace SoundWave.App
         {
             songService = service;
             this.albumService = albumService;
+            SendFileCommand = new RelayCommand(async obj => await SendFile(obj));
             Task.Run(() => Fetch());
         }
 
@@ -84,8 +104,17 @@ namespace SoundWave.App
             }
         }
 
+        private async Task SendFile(object obj)
+        {
+            if (obj is string filePath && !string.IsNullOrEmpty(filePath))
+            {
+                var fileName = Path.GetFileName(filePath);
+                var fileBytes = await File.ReadAllBytesAsync(filePath);
+                await _connection.InvokeAsync("SendFile", UserName, fileBytes, fileName);
+            }
+        }
 
-        private AsyncRelayCommand addCommand;
+    private AsyncRelayCommand addCommand;
         public AsyncRelayCommand AddCommand
         {
             get
