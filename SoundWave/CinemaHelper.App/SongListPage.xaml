@@ -19,24 +19,24 @@
     VerticalAlignment="Center"
     >
             <ListBox ItemsSource="{Binding SongList}" SelectedItem="{Binding SelectedSong}" 
-         BorderThickness="0" Margin="10">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Margin="5" Padding="10" BorderBrush="#FF6200EA" BorderThickness="2" CornerRadius="10">
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="24" Text="{Binding Id}" Margin="5,0" Width="50"/>
-                                    <TextBlock FontSize="24" Text="{Binding Title}" FontWeight="Bold" Margin="5,0" />
-                                    <TextBlock FontSize="24" Text="{Binding AlbumId}" Margin="5,0" Foreground="#FF6200EA"/>
-                                </StackPanel>
-                                <Border Background="#FFC8E6C9" Height="2" Margin="0,5"/>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+         BorderThickness="0" Margin="10" Height="300" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="5" Padding="10" BorderBrush="#FF6200EA" BorderThickness="2" CornerRadius="10">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="24" Text="{Binding Path=Song.Id}" Margin="5,0" Width="50"/>
+                                            <TextBlock FontSize="24" Text="{Binding Path=Song.Title}" FontWeight="Bold" Margin="5,0" />
+                                            <TextBlock FontSize="24" Text="{Binding Path=Album.Name}" Margin="5,0" Foreground="#FF6200EA"/>
+                                        </StackPanel>
+                                        <Border Background="#FFC8E6C9" Height="2" Margin="0,5"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
-        </StackPanel>
+                </StackPanel>
         <StackPanel 
     Grid.Column="0"
     HorizontalAlignment="Center"

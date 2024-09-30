@@ -17,7 +17,7 @@ namespace SoundWave.Core.Data
         /// и их десериализация
         /// </summary>
         /// <returns></returns>
-        public List<Song> Get()
+        public List<SongEntity> Get()
         {
             //if (File.Exists(path))
             //{
@@ -38,7 +38,7 @@ namespace SoundWave.Core.Data
         /// и их десериализация
         /// </summary>
         /// <returns></returns>
-        public void Write(List<Song> data)
+        public void Write(List<SongEntity> data)
         {
             using (StreamWriter writer = new StreamWriter(path,false)) {
 

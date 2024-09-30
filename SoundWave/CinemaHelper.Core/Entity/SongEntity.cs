@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SoundWave.Server.DTOs;
 
 namespace SoundWave.Core
 {
@@ -9,28 +10,23 @@ namespace SoundWave.Core
     /// </summary>
     /// <param name="id">Уникальный идентификатор фильма</param>
     /// <param name="title">Название фильма</param>
-    public class Song
+    public class SongEntity
     {
         /// <summary>
         /// Обычный конструктор, до .NET8. В новых версиях доступны оба варианта
         /// </summary>
         /// <param name="id"></param>
         /// <param name="title"></param>
-        public Song(int id,string title = "Some songs")
+        public SongEntity(SongDTO song,AlbumDTO album)
         {
-            ItemId = id;
-            Title = title;
+            Song = song;
+            Album = album;
         }
 
         [JsonProperty("ItemId")]
-        public int ItemId { get; set; }
+        public SongDTO Song { get; set; }
 
-        public string Title { get; set; }
+        public AlbumDTO Album { get; set; }
 
-
-        public override string ToString()
-        {
-            return ItemId + "|" + Title;
-        }
     }
 }

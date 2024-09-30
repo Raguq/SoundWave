@@ -67,8 +67,8 @@ namespace SoundWave.App
             }
         }
 
-        private ObservableCollection<SongDTO> _songList = new ObservableCollection<SongDTO>();
-        public ObservableCollection<SongDTO> SongList { get => _songList; set { _songList = value; OnPropertyChanged("SongList"); } }
+        private ObservableCollection<SongEntity> _songList = new ObservableCollection<SongEntity>();
+        public ObservableCollection<SongEntity> SongList { get => _songList; set { _songList = value; OnPropertyChanged("SongList"); } }
 
         private SongService songService;
 
@@ -95,8 +95,8 @@ namespace SoundWave.App
         {
             try
             {
-                SongList = new ObservableCollection<SongDTO>(await songService.GetAll());
                 AlbumList = new ObservableCollection<AlbumDTO>(await albumService.GetAll());
+                SongList = new ObservableCollection<SongEntity>((await songService.GetAll()).Select(x=>new SongEntity(x,AlbumList.First(y=>x.AlbumId == y.Id))));
             }
             catch (Exception ex)
             {
