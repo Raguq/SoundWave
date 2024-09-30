@@ -4,6 +4,7 @@ using SoundWave.Core;
 using SoundWave.Core.Service;
 using SoundWave.Server.DTOs;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 
@@ -65,7 +66,6 @@ namespace SoundWave.App
                 OnPropertyChanged("SelectedAlbum");
             }
         }
-
 
         private ObservableCollection<SongDTO> _songList = new ObservableCollection<SongDTO>();
         public ObservableCollection<SongDTO> SongList { get => _songList; set { _songList = value; OnPropertyChanged("SongList"); } }

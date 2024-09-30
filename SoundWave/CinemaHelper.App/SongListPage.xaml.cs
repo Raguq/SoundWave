@@ -1,4 +1,5 @@
-﻿using SoundWave.Core.Data;
+﻿
+using SoundWave.Core.Data;
 using SoundWave.Core.Service;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,11 @@ using System.Windows.Shapes;
 namespace SoundWave.App
 {
     /// <summary>
-    /// Логика взаимодействия для CinemaListPage.xaml
+    /// Логика взаимодействия для SongListPage.xaml
     /// </summary>
-    public partial class CinemaListPage : Page
+    public sealed partial class SongListPage : Page
     {
-        public CinemaListPage(MainViewModel viewModel)
+        public SongListPage(MainViewModel viewModel)
         {
             DataContext = viewModel;
             InitializeComponent();
