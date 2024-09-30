@@ -15,17 +15,17 @@ namespace SoundWave.App
         private HubConnection _connection;
         private string _userName;
         private string _message;
-        public string UserName
-        {
-            get => _userName;
-            set => SetProperty(ref _userName, value);
-        }
+        //public string UserName
+        //{
+        //    get => _userName;
+        //    set => SetProperty(ref _userName, value);
+        //}
 
-        public string Message
-        {
-            get => _message;
-            set => SetProperty(ref _message, value);
-        }
+        //public string Message
+        //{
+        //    get => _message;
+        //    set => SetProperty(ref _message, value);
+        //}
 
         public RelayCommand SendFileCommand { get; }
 
@@ -87,7 +87,7 @@ namespace SoundWave.App
         {
             songService = service;
             this.albumService = albumService;
-            SendFileCommand = new RelayCommand(async obj => await SendFile(obj));
+            //SendFileCommand = new RelayCommand(async obj => await SendFile(obj));
             Task.Run(() => Fetch());
         }
 
@@ -104,15 +104,15 @@ namespace SoundWave.App
             }
         }
 
-        private async Task SendFile(object obj)
-        {
-            if (obj is string filePath && !string.IsNullOrEmpty(filePath))
-            {
-                var fileName = Path.GetFileName(filePath);
-                var fileBytes = await File.ReadAllBytesAsync(filePath);
-                await _connection.InvokeAsync("SendFile", UserName, fileBytes, fileName);
-            }
-        }
+        //private async Task SendFile(object obj)
+        //{
+        //    if (obj is string filePath && !string.IsNullOrEmpty(filePath))
+        //    {
+        //        var fileName = Path.GetFileName(filePath);
+        //        var fileBytes = await File.ReadAllBytesAsync(filePath);
+        //        await _connection.InvokeAsync("SendFile", UserName, fileBytes, fileName);
+        //    }
+        //}
 
     private AsyncRelayCommand addCommand;
         public AsyncRelayCommand AddCommand
