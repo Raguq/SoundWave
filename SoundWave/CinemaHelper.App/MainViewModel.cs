@@ -72,8 +72,8 @@ namespace SoundWave.App
 
         private SongService songService;
 
-        private SongDTO _selectedSong;
-        public SongDTO SelectedSong
+        private SongEntity _selectedSong;
+        public SongEntity SelectedSong
         {
             get => _selectedSong;
             set
@@ -154,7 +154,7 @@ namespace SoundWave.App
                             try
                             {
                                 await songService.Delete(
-                                        SelectedSong.Id
+                                        SelectedSong.Song.Id
                                           );
                                 await Fetch();
                             }
@@ -182,11 +182,11 @@ namespace SoundWave.App
                           {
                               await songService.Update(
                                     new UpdateSongDTO(
-                                        SelectedSong.Id,
+                                        SelectedSong.Song.Id,
                                         Input,
                                         Input2 ?? 0,
-                                        SelectedSong.AlbumId,
-                                        SelectedSong.UserId
+                                        SelectedSong.Song.AlbumId,
+                                        SelectedSong.Song.UserId
                                         )
                                     );
                               await Fetch();

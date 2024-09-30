@@ -91,5 +91,9 @@ namespace SoundWave.Core.Service
             }
         }
 
+        public async Task Delete(object id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
