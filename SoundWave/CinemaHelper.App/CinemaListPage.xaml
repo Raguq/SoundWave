@@ -37,64 +37,228 @@
     HorizontalAlignment="Center"
     VerticalAlignment="Center"
     >
-            <TextBox 
-        FontSize="30" 
-        Background="LightGray"
-        Margin="10"
+            <TextBlock
+                Text="Название песни" HorizontalAlignment="Center" FontSize="30"/>
+            <Border 
+    CornerRadius="10" 
+    BorderBrush="#FF6200EA" 
+    BorderThickness="2"
+    Margin="5">
+                <TextBox 
         x:Name="Input"
-        Text="{Binding Input}"/>
-            <TextBox 
-FontSize="30" 
-Background="LightGray"
-Margin="10"
-x:Name="Input2"
-Text="{Binding Input2}"/>
-            
-<ComboBox Name="Альбомы"
+        FontSize="30"
+        Background="LightGray"
+        Foreground="#333333"
+        Padding="10"
+                    Text="{Binding Input}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="#40000000" BlurRadius="10" ShadowDepth="2"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="Foreground" Value="#333333"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="BorderBrush" Value="#FF3700B3"/>
+                                    <Setter Property="Background" Value="#FFE0E0E0"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFE0E0E0"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Border>
+            <Border 
+CornerRadius="10" 
+BorderBrush="#FF6200EA" 
+BorderThickness="2"
+Margin="5">
+                <TextBox 
+    x:Name="Input2"
+    FontSize="30"
+    Background="LightGray"
+    Foreground="#333333"
+    Padding="10"
+                Text="{Binding Input2}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="#40000000" BlurRadius="10" ShadowDepth="2"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="Foreground" Value="#333333"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="BorderBrush" Value="#FF3700B3"/>
+                                    <Setter Property="Background" Value="#FFE0E0E0"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFE0E0E0"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Border>
+
+            <ComboBox Name="Альбомы"
     Height="40" FontSize="30"
     ItemsSource ="{Binding AlbumList}"
     DisplayMemberPath="Name"
 />
 
-            <!--<TextBlock 
-        FontSize="30" 
-        Background="LightGreen"
-        Margin="10"
-        x:Name="SelectedFilmTitle"
-        Text="{Binding Path=SelectedSong.Title}"/>-->
             <Button 
-        Margin="10 10 10 0"
-        Height="50"
-        Width="300"
-        Content="Добавить"
-        Background="DarkGreen"
-        FontSize="30"
-        BorderBrush="Transparent"
-        x:Name="Add"
-        Command="{Binding AddCommand}"
-        />
+    Margin="10 10 10 0"
+    Height="50"
+    Width="300"
+    x:Name="Add"
+    Command="{Binding AddCommand}">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#6200EE"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontFamily" Value="Arial"/>
+                        <Setter Property="BorderBrush" Value="DarkBlue"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="20">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3700B3"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2900B7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <TextBlock FontSize="30" FontWeight="Bold" Text="Добавить" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
             <Button 
-        Margin="10 10 10 0"
-        Height="50"
-        Width="300"
-        Content="Удалить"
-        Background="Red"
-        FontSize="30"
-        BorderBrush="Transparent"
-        x:Name="Delete"
-        Command="{Binding DeleteCommand}"
-        />
+    Margin="10 10 10 0"
+    Height="50"
+    Width="300"
+    x:Name="Delete"
+    Command="{Binding DeleteCommand}">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Red"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontFamily" Value="Arial"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="20">
+                                        <!-- Задаём радиус закругления -->
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF5722"/>
+                                <!-- Цвет при наведении -->
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#D32F2F"/>
+                                <!-- Цвет при нажатии -->
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <TextBlock FontSize="30" FontWeight="Bold" Text="Удалить" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
             <Button 
-        Margin="10"
-        Height="50"
-        Width="300"
-        Content="Изменить"
-        Background="Yellow"
-        FontSize="30"
-        BorderBrush="Transparent"
-        x:Name="Edit"
-        Command="{Binding EditCommand}"
-        />
+    Margin="10"
+    Height="50"
+    Width="300"
+    x:Name="Edit"
+    Command="{Binding EditCommand}">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Yellow"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontFamily" Value="Arial"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="20">
+                                        <!-- Задаём радиус закругления -->
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFEA00"/>
+                                <!-- Цвет при наведении -->
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FFD600"/>
+                                <!-- Цвет при нажатии -->
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <TextBlock FontSize="30" FontWeight="Bold" Text="Изменить" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
         </StackPanel>
     </Grid>
+
 </Page>

@@ -44,6 +44,7 @@ namespace SoundWave.Core.Service
             {
                 await _dataSource.PostSong(new AddSongDTO(
                     song.Title,
+                    song.FilePath,
                     song.Lenght,
                     song.AlbumId,
                     song.UserId
@@ -79,6 +80,7 @@ namespace SoundWave.Core.Service
             {
                 await _dataSource.PutSong(new UpdateSongDTO(
                                 song.Id,
+                                song.FilePath,
                                 song.Title,
                                 song.Length,
                                 song.AlbumId,

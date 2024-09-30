@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoundWave.App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="800" Background="#FF708090">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
             <Button 
@@ -13,7 +13,7 @@
                 Height="70"
                 Width="250"
                 Content="Список песен"
-                Background="Purple"
+                Background="DeepSkyBlue"
                 FontSize="30"
                 BorderBrush="Transparent"
                 x:Name="CinemaListPage"

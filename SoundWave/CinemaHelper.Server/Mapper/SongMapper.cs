@@ -32,6 +32,7 @@ namespace SoundWave.Server.Mapper
         {
             return new SongDTO(
                 song.Id,
+                song.FilePath,
                 song.Title,
                 song.Lenght,
                 song.AlbumId,

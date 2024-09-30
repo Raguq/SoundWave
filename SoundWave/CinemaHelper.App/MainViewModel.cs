@@ -6,25 +6,26 @@ using SoundWave.Server.DTOs;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using Microsoft.Win32;
+using System.Threading.Tasks;
 
 namespace SoundWave.App
 {
     public class MainViewModel : ObservableObject
     {
-
         private HubConnection _connection;
         private string _userName;
         private string _message;
         public string UserName
         {
             get => _userName;
-            set => SetProperty(ref _userName, value);
+            set => OnPropertyChanged(_userName ?? "");
         }
 
         public string Message
         {
             get => _message;
-            set => SetProperty(ref _message, value);
+            set => OnPropertyChanged(_message ?? "");
         }
 
         public RelayCommand SendFileCommand { get; }
@@ -32,6 +33,7 @@ namespace SoundWave.App
         private string _input = string.Empty;
         private int? _input2 = null;
         private List<AlbumDTO> _album;
+
         public string Input
         {
             get => _input;
@@ -41,6 +43,7 @@ namespace SoundWave.App
                 OnPropertyChanged("Input");
             }
         }
+
         public int? Input2
         {
             get => _input2;
@@ -50,12 +53,16 @@ namespace SoundWave.App
                 OnPropertyChanged("Input2");
             }
         }
+
         private ObservableCollection<AlbumDTO> _albumList = new ObservableCollection<AlbumDTO>();
-        public ObservableCollection<AlbumDTO> AlbumList { get => _albumList; set { _albumList = value; OnPropertyChanged("AlbumList"); } }
+        public ObservableCollection<AlbumDTO> AlbumList
+        {
+            get => _albumList;
+            set { _albumList = value; OnPropertyChanged("AlbumList"); }
+        }
+
         private AlbumService albumService;
-
         private AlbumDTO _selectedAlbum;
-
         public AlbumDTO SelectedAlbum
         {
             get => _selectedAlbum;
@@ -66,12 +73,14 @@ namespace SoundWave.App
             }
         }
 
-
         private ObservableCollection<SongDTO> _songList = new ObservableCollection<SongDTO>();
-        public ObservableCollection<SongDTO> SongList { get => _songList; set { _songList = value; OnPropertyChanged("SongList"); } }
+        public ObservableCollection<SongDTO> SongList
+        {
+            get => _songList;
+            set { _songList = value; OnPropertyChanged("SongList"); }
+        }
 
         private SongService songService;
-
         private SongDTO _selectedSong;
         public SongDTO SelectedSong
         {
@@ -87,7 +96,8 @@ namespace SoundWave.App
         {
             songService = service;
             this.albumService = albumService;
-            SendFileCommand = new RelayCommand(async obj => await SendFile(obj));
+
+            SendFileCommand = new RelayCommand(async obj => await SendFile());
             Task.Run(() => Fetch());
         }
 
@@ -104,49 +114,63 @@ namespace SoundWave.App
             }
         }
 
-        private async Task SendFile(object obj)
+        private async Task SendFile()
         {
-            if (obj is string filePath && !string.IsNullOrEmpty(filePath))
+            var openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
             {
-                var fileName = Path.GetFileName(filePath);
-                var fileBytes = await File.ReadAllBytesAsync(filePath);
-                await _connection.InvokeAsync("SendFile", UserName, fileBytes, fileName);
+                string filePath = openFileDialog.FileName;
+                try
+                {
+                    using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                    using var memoryStream = new MemoryStream();
+                    await fileStream.CopyToAsync(memoryStream);
+
+                    // Передаем файл на сервер
+                    await _connection.InvokeAsync("SendFile", memoryStream.ToArray(), Path.GetFileName(filePath));
+                    MessageBox.Show("File sent successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error sending file: {ex.Message}");
+                }
             }
         }
 
-    private AsyncRelayCommand addCommand;
+        private AsyncRelayCommand addCommand;
         public AsyncRelayCommand AddCommand
         {
             get
             {
-
                 return addCommand ?? (
                     addCommand = new AsyncRelayCommand(() => Task.Run(
-                          async () =>
-                          {
-                              try
-                              {
-                                  await songService.Create(
-                                          new SongDTO(0, Input, Input2 ?? 0, SelectedAlbum.Id, 1)
-                                          );
-                                  await Fetch();
-                              }
-                              catch (Exception ex)
-                              {
-                                  MessageBox.Show(ex.Message);
-                              }
-                          }))
-                    );
+                        async () =>
+                        {
+                            try
+                            {
+                                // Определяем путь для файла
+                                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedSongs", $"{Input}.mp3");
 
+                                await songService.Create(
+                                    new SongDTO(0, filePath, Input, Input2 ?? 0, SelectedAlbum.Id, 1)
+                                );
+                                await Fetch();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }))
+                    );
             }
         }
+
 
         private AsyncRelayCommand deleteCommand;
         public AsyncRelayCommand DeleteCommand
         {
             get
             {
-
                 return deleteCommand ?? (
                     deleteCommand = new AsyncRelayCommand(() => Task.Run(
                         async () =>
@@ -164,7 +188,6 @@ namespace SoundWave.App
                             }
                         }))
                     );
-
             }
         }
 
@@ -173,34 +196,31 @@ namespace SoundWave.App
         {
             get
             {
+                return editCommand ??= new AsyncRelayCommand(async () =>
+                {
+                    try
+                    {
+                        // Определяем путь для файла, если требуется
+                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedSongs", $"{Input}.mp3");
 
-                return editCommand ??
-                  (editCommand = new AsyncRelayCommand(() => Task.Run(
-                      async () =>
-                      {
-                          try
-                          {
-                              await songService.Update(
-                                    new UpdateSongDTO(
-                                        SelectedSong.Id,
-                                        Input,
-                                        Input2 ?? 0,
-                                        SelectedSong.AlbumId,
-                                        SelectedSong.UserId
-                                        )
-                                    );
-                              await Fetch();
-                          }
-                          catch (Exception ex)
-                          {
-                              MessageBox.Show(ex.Message);
-                          }
-                      }))
-                  );
-
+                        await songService.Update(
+                            new UpdateSongDTO(
+                                SelectedSong.Id,
+                                filePath, // Устанавливаем обновленный путь, если это необходимо
+                                Input,
+                                Input2 ?? 0,
+                                SelectedSong.AlbumId,
+                                SelectedSong.UserId
+                            )
+                        );
+                        await Fetch();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                });
             }
         }
-
-
     }
 }
